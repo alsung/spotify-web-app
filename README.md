@@ -37,7 +37,8 @@ Imagine what happens when you open the Spotify app and play a song. There's prob
 `mediaPlayer.play();`\
 The play() function is an API method that abstracts away things like:
 - The code needed to retrieve the audio file from the internet or your device
-- The code needed to send audio data to your device  \
+- The code needed to send audio data to your device
+
 In client-side JS, APIs are usually based on **objects**. Chances are you've seen the following: \
 `const element = document.querySelector('.special-class');`\
 This is an example of using the DOM (Document Object Model) API. The `document` object is being used as the entry point for the DOM API, and `querySelector()` is the API method. 
@@ -49,10 +50,10 @@ In the web development world, APIs generally falls into one of two categories: *
 
 ### Browser APIs
 
-These APIs are built into your web browser (like Chrome or Safari) and expose data from the browser and surrounding computer environment that developers can easily leverage. 
-The most common browser API is the **DOM API**. It lets you manipulate HTML and CSS -- creating, removing, and changing HTML, dynamically applying new styles to your page, etc. 
-There's a long list of browser APIs, another notable one is the Web Audio API that let's you manipulate audio in the browser. It allows you to do some very interesting things like altering 
-the volume of a track, apply different effects to it, etc. The API abstracts away all the complex lower-level code that's doing the actual audio processing so you can focus on building something cool. 
+These APIs are built into your web browser (like Chrome or Safari) and expose data from the browser and surrounding computer environment that developers can easily leverage. The most common browser API is 
+the **DOM API**. It lets you manipulate HTML and CSS -- creating, removing, and changing HTML, dynamically applying new styles to your page, etc. There's a long list of browser APIs, another notable one is 
+the Web Audio API that let's you manipulate audio in the browser. It allows you to do some very interesting things like altering the volume of a track, apply different effects to it, etc. The API abstracts 
+away all the complex lower-level code that's doing the actual audio processing so you can focus on building something cool. 
 
 ### Third-party APIs
 
@@ -104,7 +105,8 @@ perform four possible operations: Create, Read, Update, and Delete (**CRUD**).
 - **GET**: Retrieves or "reads" resources
 - **POST**: Creates resources
 - **PUT / PATCH**: Updates resources
-- **DELETE**: Deletes resources  \
+- **DELETE**: Deletes resources
+
 When working with a REST API, the documentation should tell you which HTTP method to use with each request. For example. Spotify's get playlist endpoint from the examples above should be used with a `GET` request.\
 `GET https://api.spotify.com/v1/playlists/{playlist_id}`\
 The resource this endpoint returns is some JSON about a specific playlist. 
@@ -184,7 +186,8 @@ Express is a popular framework for Node.js, designed for building web applicatio
 makes it easy to do things like: 
 - Write handlers for requests with different HTTP verbes (GET, POST, DELETE, etc.) at different URL paths (routes)
 - Integrate with "view" rendering engines (Pug, Mustache, EJS, etc.) to dynamically generate responses
-- Add additional request processing middleware at any point within the request handling pipeline to handle things like authentication, cookies, URL parameters, and more  \
+- Add additional request processing middleware at any point within the request handling pipeline to handle things like authentication, cookies, URL parameters, and more
+
 Express documentation [here](https://expressjs.com/en/starter/basic-routing.html)
 
 
@@ -201,7 +204,8 @@ With Express apps, every route definition is structured like this:
 - `app` is an Express instance
 - `METHOD` is an HTTP request method in lowercase (like get or post)
 - `PATH` is a URL path on the server
-- `HANDLER` is the callback function that is run every time a user hits the specific URL  \
+- `HANDLER` is the callback function that is run every time a user hits the specific URL
+
 The callback function takes a request and a response object as arguments. No matter what you call the arguments, the first argument will always be the request and the second will always be the response. 
 
 ### Responses
@@ -225,7 +229,8 @@ The callback function's request (req) argument is an object. This object contain
 - req.body: Contains key-value pairs of data submitted in the request body
 - req.method: Contains a string corresponding to the HTTP method of the request
 - req.params: An object containing properties mapped to the named route "parameters"
-- req.query: An object containing a property for each query string parameter in the route  \
+- req.query: An object containing a property for each query string parameter in the route
+
 req.query is a property that's commonly utilized in route handlers. A simple example would be using the endpoint's query parameters (the key value pairs following the `?` in the URL) to dynamically generate a 
 response. If you add the handler above for the `/awesome-generator` endpoint to your `index.js` file and restart the server, you should be able to dynamically change the text that is being displayed in your browser 
 by updating the URL's query parameters in your browser's address bar. In our route handler, we use destructuring to grab the `name` and `isAwesome` properties off the req.query object. Then we dynamically generate 

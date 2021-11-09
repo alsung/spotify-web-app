@@ -180,7 +180,7 @@ completed, and range from the 100s to the 500s. In general, the categories are:
 - 400+: An error that originates from the client has occurred
 - 500+: An error that originates from the server has occurred
 
-## Express
+# Express
 
 Express is a popular framework for Node.js, designed for building web applications. At its core, it provides HTTP utility methods and middleware for developers to easily create powerful APIs. Express 
 makes it easy to do things like: 
@@ -191,13 +191,13 @@ makes it easy to do things like:
 Express documentation [here](https://expressjs.com/en/starter/basic-routing.html)
 
 
-### Routing
+## Routing
 
 When a user goes to a URL (i.e. makes a request to an endpoint), we need to define what happens behind the scenes when the user hits that endpoint, as well as what they get back as a response. 
 For example, when a user hits an endpoint we might want to query a database for information, modify data in some way, or create a new instance of something (like posting a new picture on Instagram). 
 Think CRUD operations! 
 
-### Route handlers
+## Route handlers
 
 With Express apps, every route definition is structured like this:
 `app.METHOD(PATH, HANDLER)`
@@ -208,7 +208,7 @@ With Express apps, every route definition is structured like this:
 
 The callback function takes a request and a response object as arguments. No matter what you call the arguments, the first argument will always be the request and the second will always be the response. 
 
-### Responses
+## Responses
 
 There are a bunch of response methods for ending the request/response cycle such as `res.send()`, `res.json()` to send a JSON response or `res.sendFile()` to send a file. `res.json()` is probably the response method 
 most often used. Here is an example: \
@@ -223,7 +223,7 @@ app.get('/', (req, res) => {
 });
 ```
 
-### Requests
+## Requests
 
 The callback function's request (req) argument is an object. This object contains information about what's coming in with the request. Here are a few examples:
 - req.body: Contains key-value pairs of data submitted in the request body
@@ -237,3 +237,58 @@ by updating the URL's query parameters in your browser's address bar. In our rou
 the string to send back with template strings. If `isAwesome` is true, the string will end with "really awesome", and if its false, it'll end with "not awesome". \
 `res.send(``${name} is ${JSON.parse(isAwesome) ? 'really' : 'not'} awesome``);`
 
+# OAuth
+
+OAuth (Open Authorization) is a secure, industry-standard protocol that allows you to approve one application interacting with another on your behalf **without giving away your password**. Instead of passing user 
+credentials from app to app, OAuth lets you pass authorization between apps over HTTPS with **access tokens**. For example, you can tell Facebook it's okay for Spotify to access your profile or post updates to your 
+timeline without having to give Spotify your Facebook password; in the event Spotify suffers a breach, your Facebook password remains safe. \
+In our case, when a user authorizes our app to access their Spotify account data, we won't be storing their username or password anywhere. We don't want to be responsible for sensitive information like this, so 
+instead, we'll rely on the OAuth protocol to take care of authorization flow with access tokens. 
+
+## Authorization, not Authentication
+
+It's important to remember that OAuth is about **authorization**, not authentication. **Authorization** is asking for permission to do things. **Authentication** is about proving you are the correct person by 
+providing credentials like a username or password. OAuth scenarios almost always represent two unrelated sites or services trying to accomplish something on behalf of users or their software; all three must work 
+together, with multiple approvals, for the completed transaction to get **authorized**. 
+
+## Roles
+
+You can picture OAuth as a series of handshakes. If all handshakes are completed, then your reward is a unique access token that only your app can use to access resources from a service. There are four main 
+**roles** that need to "shake hands" to get that token. 
+- **Resource Server**: The API which stores data the application wants to access (*Spotify API*)
+- **Resource Owner**: Owns the data in the resource server (*the users who wants to log into our app with Spotify is the owner of their Spotify account*)
+- **Client**: the application that wants to access your data (*our app*)
+- **Authorization Server**: The server that receives requests from the client for access tokens and issues them upon successful authentication and consent by the resource owner (*Spotify Accounts Service*)
+
+## Scopes
+
+Scopes are used to specify exactly which resources should be available to the client that is asking for authorization. They provide users of third-party apps with the confidence that only the information they 
+choose to share will be shared, and nothing more. The resource server (in our case, the Spotify API) is in charge of defining these scope values, and which resources they relate to. The Spotify API has many scopes 
+for different purposes. For example, the `user-read-private` scope is for read access to a user's subscription details and is required if you want to access the `https://api.spotify.com/v1/me` endpoint to get 
+currently logged-in user's profile information. There is also a scope `playlist-modify-private` that is required if you need write access to a user's private playlists. this scope allows you to do things like 
+add items to a playlist or upload a custom playlist cover image.\
+All available scopes for the Spotify API [here](https://developer.spotify.com/documentation/general/guides/scopes/)
+
+## Tokens
+
+As mentioned before, all the back and forth hand-shaking OAuth requires is to get **an access token**. Our app needs this token to successfully access resources on the Spotify API. With every API request 
+we make, we'll include our token in the HTTP request headers. If we don't, the Spotify API won't know our app has been authorized by the user, and will reject our requests for any data. \
+You can think of access tokens like two-factor authentication codes that some services send via text message for you to log in. Just like 2FA auth codes, OAuth codes have a limited time they are valid for. 
+After a while, all tokens expire, and you'll need to request another one (or refresh it) for security purposes. 
+
+## OAuth flow
+1. Client requests authorization to access data from Spotify
+2. Spotify authorizes access to client
+3. User grants app access their Spotify data
+4. Client receives access token from Spotify
+5. Client uses access token to request data from Spotify 
+
+![OAuth flow](images/oauth-flow.png)
+
+
+
+
+
+# Contributors
+
+source: https://newline.co/courses/build-a-spotify-connected-app by Brittany Chiang

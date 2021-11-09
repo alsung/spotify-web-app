@@ -1,4 +1,4 @@
-# spotify-web-app
+# Spotify Web App
 A web app to visualize personalized Spotify data including features that aren't readily available in the official Spotify app. 
 
 # Front end
@@ -155,7 +155,52 @@ completed, and range from the 100s to the 500s. In general, the categories are:
  - 400+: An error that originates from the client has occurred
  - 500+: An error that originates from the server has occurred
 
+## Express
+Express is a popular framework for Node.js, designed for building web applications. At its core, it provides HTTP utility methods and middleware for developers to easily create powerful APIs. Express 
+makes it easy to do things like: 
+ - Write handlers for requests with different HTTP verbes (GET, POST, DELETE, etc.) at different URL paths (routes)
+ - Integrate with "view" rendering engines (Pug, Mustache, EJS, etc.) to dynamically generate responses
+ - Add additional request processing middleware at any point within the request handling pipeline to handle things like authentication, cookies, URL parameters, and more
+Express documentation [here](https://expressjs.com/en/starter/basic-routing.html)
 
 
+### Routing
+When a user goes to a URL (i.e. makes a request to an endpoint), we need to define what happens behind the scenes when the user hits that endpoint, as well as what they get back as a response. 
+For example, when a user hits an endpoint we might want to query a database for information, modify data in some way, or create a new instance of something (like posting a new picture on Instagram). 
+Think CRUD operations! 
 
+### Route handlers
+With Express apps, every route definition is structured like this:
+`app.METHOD(PATH, HANDLER)`
+ - `app` is an Express instance
+ - `METHOD` is an HTTP request method in lowercase (like get or post)
+ - `PATH` is a URL path on the server
+ - `HANDLER` is the callback function that is run every time a user hits the specific URL
+The callback function takes a request and a response object as arguments. No matter what you call the arguments, the first argument will always be the request and the second will always be the response. 
+
+### Responses
+There are a bunch of response methods for ending the request/response cycle such as `res.send()`, `res.json()` to send a JSON response or `res.sendFile()` to send a file. `res.json()` is probably the response method 
+most often used. Here is an example: \
+```js
+app.get('/', (req, res) => {
+    const data = {
+        name: 'Brittany', 
+        isAwesome: true
+    };
+
+    res.json(data);
+});
+```
+
+### Requests
+The callback function's request (req) argument is an object. This object contains information about what's coming in with the request. Here are a few examples:
+ - req.body: Contains key-value pairs of data submitted in the request body
+ - req.method: Contains a string corresponding to the HTTP method of the request
+ - req.params: An object containing properties mapped to the named route "parameters"
+ - req.query: An object containing a property for each query string parameter in the route
+req.query is a property that's commonly utilized in route handlers. A simple example would be using the endpoint's query parameters (the key value pairs following the `?` in the URL) to dynamically generate a 
+response. If you add the handler above for the `/awesome-generator` endpoint to your `index.js` file and restart the server, you should be able to dynamically change the text that is being displayed in your browser 
+by updating the URL's query parameters in your browser's address bar. In our route handler, we use destructuring to grab the `name` and `isAwesome` properties off the req.query object. Then we dynamically generate 
+the string to send back with template strings. If `isAwesome` is true, the string will end with "really awesome", and if its false, it'll end with "not awesome". \
+`res.send(`${name} is ${JSON.parse(isAwesome) ? 'really' : 'not'} awesome`);`
 

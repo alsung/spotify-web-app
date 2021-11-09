@@ -21,8 +21,8 @@ A web app to visualize personalized Spotify data including features that aren't 
 
 # API - Application Programming Interface
 Think of this as a set of rules that allow one piece of software to talk to another. APIs make our lives easier by abstracting away complex code and replacing it with simpler more straight-forward code. 
-In client-side JS, APIs are usually based on **objects**. Chances are you've seen the following: 
-`const element = document.querySelector('.special-class');`
+In client-side JS, APIs are usually based on **objects**. Chances are you've seen the following: \
+`const element = document.querySelector('.special-class');`\
 This is an example of using the DOM (Document Object Model) API. The `document` object is being used as the entry point for the DOM API, and `querySelector()` is the API method. 
 Note: these APIs aren't part of the JS language, but they are **built on top of JS** to give developers a convenient set of tools out of the box. 
 

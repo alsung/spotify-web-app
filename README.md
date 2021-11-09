@@ -19,13 +19,19 @@ A web app to visualize personalized Spotify data including features that aren't 
  - how to create a Node server with Express
  - how to handle HTTP requests and responses with Express route handlers
 
+# Nodemon
+Nodemon is a tool that automatically restarts our Node server when any changes in index.js are detected, saving us the hassle of stopping and restarting the server any time we want our changes to be reflected. 
+To install nodemon as a development dependency, run: \
+`npm install --save-dev nodemon`\
+I've also added an npm script in `package.json` to run `nodemon` on our Node server when we run `npm start`.
+
 # API - Application Programming Interface
 Think of this as a set of rules that allow one piece of software to talk to another. APIs make our lives easier by abstracting away complex code and replacing it with simpler more straight-forward code. 
 Imagine what happens when you open the Spotify app and play a song. There's probably some code that runs on clicking Play that looks like this:\
 `mediaPlayer.play();`\
 The play() function is an API method that abstracts away things like:
  - The code needed to retrieve the audio file from the internet or your device
- - The code needed to send audio data to your device
+ - The code needed to send audio data to your device\
 In client-side JS, APIs are usually based on **objects**. Chances are you've seen the following: \
 `const element = document.querySelector('.special-class');`\
 This is an example of using the DOM (Document Object Model) API. The `document` object is being used as the entry point for the DOM API, and `querySelector()` is the API method. 
@@ -85,7 +91,7 @@ perform four possible operations: Create, Read, Update, and Delete (**CRUD**).
  - **GET**: Retrieves or "reads" resources
  - **POST**: Creates resources
  - **PUT / PATCH**: Updates resources
- - **DELETE**: Deletes resources
+ - **DELETE**: Deletes resources\
 When working with a REST API, the documentation should tell you which HTTP method to use with each request. For example. Spotify's get playlist endpoint from the examples above should be used with a `GET` request.\
 `GET https://api.spotify.com/v1/playlists/{playlist_id}`\
 The resource this endpoint returns is some JSON about a specific playlist. 
@@ -105,7 +111,7 @@ Data is normally transmitted in the HTTP request's body by sending a single JSON
 
 ### RESTful Responses
 REST API responses usually return resources (data) in the form of JSON. 
-Here's an example of the JSON response returned from the Spotify API's `playlist` endpoint:\
+Here's an example of the JSON response returned from the Spotify API's `playlist` endpoint:
 ```json
 // GET https://api.spotify.com/v1/playlists/59ZbFPES4DQwEjBpWHzrtC
 {
@@ -160,7 +166,7 @@ Express is a popular framework for Node.js, designed for building web applicatio
 makes it easy to do things like: 
  - Write handlers for requests with different HTTP verbes (GET, POST, DELETE, etc.) at different URL paths (routes)
  - Integrate with "view" rendering engines (Pug, Mustache, EJS, etc.) to dynamically generate responses
- - Add additional request processing middleware at any point within the request handling pipeline to handle things like authentication, cookies, URL parameters, and more
+ - Add additional request processing middleware at any point within the request handling pipeline to handle things like authentication, cookies, URL parameters, and more\
 Express documentation [here](https://expressjs.com/en/starter/basic-routing.html)
 
 
@@ -175,7 +181,7 @@ With Express apps, every route definition is structured like this:
  - `app` is an Express instance
  - `METHOD` is an HTTP request method in lowercase (like get or post)
  - `PATH` is a URL path on the server
- - `HANDLER` is the callback function that is run every time a user hits the specific URL
+ - `HANDLER` is the callback function that is run every time a user hits the specific URL\
 The callback function takes a request and a response object as arguments. No matter what you call the arguments, the first argument will always be the request and the second will always be the response. 
 
 ### Responses
@@ -197,10 +203,10 @@ The callback function's request (req) argument is an object. This object contain
  - req.body: Contains key-value pairs of data submitted in the request body
  - req.method: Contains a string corresponding to the HTTP method of the request
  - req.params: An object containing properties mapped to the named route "parameters"
- - req.query: An object containing a property for each query string parameter in the route
+ - req.query: An object containing a property for each query string parameter in the route\
 req.query is a property that's commonly utilized in route handlers. A simple example would be using the endpoint's query parameters (the key value pairs following the `?` in the URL) to dynamically generate a 
 response. If you add the handler above for the `/awesome-generator` endpoint to your `index.js` file and restart the server, you should be able to dynamically change the text that is being displayed in your browser 
 by updating the URL's query parameters in your browser's address bar. In our route handler, we use destructuring to grab the `name` and `isAwesome` properties off the req.query object. Then we dynamically generate 
 the string to send back with template strings. If `isAwesome` is true, the string will end with "really awesome", and if its false, it'll end with "not awesome". \
-`res.send(`${name} is ${JSON.parse(isAwesome) ? 'really' : 'not'} awesome`);`
+`res.send(``${name} is ${JSON.parse(isAwesome) ? 'really' : 'not'} awesome``);`
 

@@ -7,7 +7,7 @@ const app = express();
 // app.METHOD(PATH, HANDLER);
 app.get('/', (req, res) => {
     const data = {
-        name: 'Brittany', 
+        name: 'Hello', 
         isAwesome: true,
     };
 

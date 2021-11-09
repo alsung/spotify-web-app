@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "nvm": "^0.0.4"
+  },
+  "name": "spotify-web-app",
+  "description": "A web app to visualize personalized Spotify data",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alsung/spotify-web-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alsung/spotify-web-app/issues"
+  },
+  "homepage": "https://github.com/alsung/spotify-web-app#readme"
+}

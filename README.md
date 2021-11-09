@@ -143,7 +143,7 @@ Here's an example of the JSON response returned from the Spotify API's `playlist
     "type": "playlist",
     "uri": "spotify:user:spotify:playlist:59ZbFPES4DQwEjBpWHzrtC"
 }
-```\
+```
 There's a lot of useful information stored in this JSON that we can use on the front end, like the playlist name, description, cover image, and number of followers. 
 
 ### HTTP status codes

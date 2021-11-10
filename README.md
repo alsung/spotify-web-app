@@ -283,7 +283,32 @@ After a while, all tokens expire, and you'll need to request another one (or ref
 4. Client receives access token from Spotify
 5. Client uses access token to request data from Spotify 
 
+Before any client or server requests are made, the **client ID** and the **client secret** are used to identify and authenticate your specific app when requesting an access token. First, the client (our app) 
+sends an authorization request containing the client ID and secret to the authorization server (the Spotify Accounts Service). This request also includes any scopes the client needs and a redirect URI 
+which the authorization server should send the access token to. Second, the authorization server (Spotify) authenticates the client (our app) using the client ID and secret, then verifies that the requested 
+scopes are permitted. Then, the user is redirected to a page on the Spotify authorization server where they can grant the app access to their Spotify account. In our case, the user will have been sent a page 
+that belongs to the Spotify accounts service (note the `accounts.spotify.com` URL), where they can log into Spotify. Once the user grants access by logging into Spotify, the authorization server redirects the 
+user back to the client (our app) with an access token. Sometimes, a refresh token is also returned with the access token. Finally, the client can use the access token to access resources from the resource 
+server (Spotify API). 
+
 ![OAuth flow](images/oauth-flow.png)
+
+## Spotify Authorization Flow
+
+[Spotify Authorization Code](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-flows)
+
+There are four possible ways for obtaining app authorization: 
+1. Authorization Code Flow
+2. Authorization Code Flow with Proof Key for Code Exchange (PKCE)
+3. Implicit Grant Flow
+4. Client Credentials Flow
+
+Each flow provides a slightly different level of authorization. For example, the Implicit Grant Flow can be implemented entirely client-side (no server), but does not provide a refresh token. The Client Credentials 
+Flow is used for server-to-server authentication, but authorization does not grant permission to access user resources. Out of the four flows, the **Authorization Code Flow** is the only one that lets the client 
+access user resources, requires a server-side secret key (an extra layer of security), and provides an access token that can be refreshed. The ability to refresh an access token is a big advantage -- users of our 
+app will only need to grant permission once. 
+
+![Spotify Authorization Code Flow](images/spotify-auth-code-flow.png)
 
 
 
@@ -291,4 +316,5 @@ After a while, all tokens expire, and you'll need to request another one (or ref
 
 # Contributors
 
-source: https://newline.co/courses/build-a-spotify-connected-app by Brittany Chiang
+- Source: https://newline.co/courses/build-a-spotify-connected-app by Brittany Chiang
+- [**Alexander Sung**](https://github.com/alsung) - Creator 

@@ -310,7 +310,7 @@ app will only need to grant permission once.
 
 ![Spotify Authorization Code Flow](images/spotify-auth-code-flow.png)
 
-
+![Spotify's Authorization Code OAuth Flow](images/authorization-code-diagram.png)
 
 
 

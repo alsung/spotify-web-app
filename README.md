@@ -357,6 +357,32 @@ in the root directory.
 ├── package-lock.json
 └── package.json
 
+## Local Storage
+
+- Upon first visit, log in, then store token from query params in local storage
+- Store timestamp in local storage
+- With next API call, first check for stored tokens
+- Use stored timestamp to make sure tokens are not expired
+    - if valid, use that in our API request
+    - if expired, use refresh token to hit /refresh_token
+        - store new tokens in local storage and update timestamp
+
+Four items in local storage
+1. Spotify access token
+2. Spotify refresh token
+3. Spotify access token expire time (3600 seconds)
+4. Timestamp of when the access token currently in use was fetched and stored
+
+## React Routing
+We plan to have the following pages: 
+- Profile page (`/`)
+- Top Artists page (`/top-artists`)
+- Top Tracks page (`/top-tracks`)
+- Playlists page (`/playlists`)
+- Playlist details page (`/playlists/:id`)
+
+We will use React Router to set up routing for these pages by importing `react-router-dom` version 5.2.0. 
+
 # Contributors
 
 - Source: https://newline.co/courses/build-a-spotify-connected-app by Brittany Chiang

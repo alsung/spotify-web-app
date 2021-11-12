@@ -1,40 +1,124 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { accessToken, logout, getCurrentUserProfile } from './spotify';
+import { catchErrors } from './utils';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useLocation
+} from "react-router-dom";
 import logo from './logo.svg';
-import './App.css';
+import styled, { createGlobalStyle } from 'styled-components/macro';
+
+const GlobalStyle = createGlobalStyle`
+  :root {
+    --black: #121212;
+    --green: #1db954;
+    --white: #ffffff;
+
+    --font: 'Circular Std'--black, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  }
+
+  html {
+    box-sizing: border-box;
+  }
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+  }
+`;
+
+const StyledLoginButton = styled.a`
+  background-color: var(--green);
+  color: var(--white);
+  padding: 10px 20px;
+  margin: 20px auto;
+  border-radius: 30px;
+  display: inline-block;
+`;
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 function App() {
+  const [token, setToken] = useState(null);
+  const [profile, setProfile] = useState(null);
+
   useEffect(() => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const accessToken = urlParams.get('access_token');
-    const refreshToken = urlParams.get('refresh_token');
+    setToken(accessToken);
 
-    console.log(accessToken);
-    console.log(refreshToken);
-
-    if (refreshToken) {
-      fetch(`/refresh_token?refresh_token=${refreshToken}`)
-        .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(err => console.error(err));
+    const fetchData = async () => {
+      const { data } = await getCurrentUserProfile();
+      setProfile(data);
     }
+
+    catchErrors(fetchData());
   }, [])
 
   return (
     <div className="App">
+      <GlobalStyle />
+
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="http://localhost:8888/login"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Log in to Spotify
-        </a>
+        {!token ? (
+          <StyledLoginButton
+            href="http://localhost:8888/login"
+          >
+            Log in to Spotify
+          </StyledLoginButton>
+        ) : (
+          <Router>
+            <ScrollToTop />
+
+            <Switch>
+              <Route path="/top-artists">
+                <h1>Top Artists</h1>
+              </Route>
+              <Route path="/top-tracks">
+                <h1>Top Tracks</h1>
+              </Route>
+              <Route path="/playlists/:id">
+                <h1>Playlists</h1>
+              </Route>
+              <Route path="/playlists">
+                <h1>Playlists</h1>
+              </Route>
+              <Route path="/">
+                <>
+                  <button onClick={logout}>Log Out</button>
+
+                  {profile && (
+                    <div>
+                      <h1>{profile.display_name}</h1>
+                      <p>{profile.followers.total} Followers</p>
+                      {profile.images.length && profile.images[0].url && (
+                        <img src={profile.images[0].url} alt="Avatar"/>
+                      )}
+                    </div>
+                  )}
+
+
+                </>
+              </Route>
+            </Switch>
+          </Router>
+        )}
       </header>
     </div>
   );

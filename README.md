@@ -312,7 +312,50 @@ app will only need to grant permission once.
 
 ![Spotify's Authorization Code OAuth Flow](images/authorization-code-diagram.png)
 
+## Axios
 
+Although it is possible to send a `POST` request using Node's built-in modules, it can get pretty verbose and clunky. A popular abstraction we can use instead is the Axios library, which provides a simpler API. Axios 
+also works both client-side (in the browser) and server-side (in our Express app). \
+To install `axios` as a dependency: \
+`npm install axios` \
+and import at top of our index.js file: `const axios = require('axios');`
+
+## React Front end
+
+We will set up a React app for the front end of our app; we'll configure our project to handle two `package.json` files and update our workflow to run both client-side and server-side code at the same time. We will 
+pass the OAuth access token from our Node server to our React app, and we will run an Express app and a React app concurrently. 
+
+## Proxying API requests
+
+We want to make an HTTP request from our React app to one of our Express app's endpoints, such as when our access token expires, and we need to get a new one with the `/refresh_token` endpoint we set up. 
+If we tried to send a GET request to `http://localhost:8888/refresh_token` from `http://localhost:3000`, we would run into a CORS (Cross-Origin Resource Sharing) issue. This is usually caused when 
+you are trying to access resources from another domain, and the domain you're requesting resources from is not permitted. 
+To tell the development server to proxy any unknown requests to our API server in development, we set up a proxy in our React app's `package.json` file for `http://localhost:8888` where our Express app runs. This allows 
+us to set up a request to our Express app's `/refresh_token` endpoint (without `http://localhost:8888`) using `fetch()` in our `App.js`. 
+
+## Running two servers at the same time
+To improve the development workflow, we added an npm package called Concurrently to the root of our project that allows us to run multiple npm commands at the same time. We have also set up a command for `npm install` that installs all `node_modules` required to run both apps. 
+Instead of manually running `npm install` twice when setting up the project, we added a postinstall script to our root package.json to automatically run `npm install` in the `client` directory after installation has finished 
+in the root directory. 
+
+## Project Structure
+
+.
+├── client
+│   ├── node_modules
+│   ├── public
+│   ├── src
+│   ├── .gitignore
+│   ├── package-lock.json
+│   ├── package.json
+│   └── README.md
+├── node_modules
+├── .env
+├── .gitignore
+├── .nvmrc
+├── index.js
+├── package-lock.json
+└── package.json
 
 # Contributors
 

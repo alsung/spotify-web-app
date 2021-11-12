@@ -10,7 +10,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "server": "nodemon index.js",
+    "client": "cd client && npm start",
+    "postinstall": "cd client && npm install"
   },
   "repository": {
     "type": "git",
@@ -24,6 +27,7 @@
   },
   "homepage": "https://github.com/alsung/spotify-web-app#readme",
   "devDependencies": {
+    "concurrently": "^6.3.0",
     "nodemon": "^2.0.15"
   }
 }

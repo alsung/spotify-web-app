@@ -340,22 +340,22 @@ in the root directory.
 
 ## Project Structure
 
-.
-├── client
-│   ├── node_modules
-│   ├── public
-│   ├── src
-│   ├── .gitignore
-│   ├── package-lock.json
-│   ├── package.json
-│   └── README.md
-├── node_modules
-├── .env
-├── .gitignore
-├── .nvmrc
-├── index.js
-├── package-lock.json
-└── package.json
+.\
+├── client\
+│   ├── node_modules\
+│   ├── public\
+│   ├── src\
+│   ├── .gitignore\
+│   ├── package-lock.json\
+│   ├── package.json\
+│   └── README.md\
+├── node_modules\
+├── .env\
+├── .gitignore\
+├── .nvmrc\
+├── index.js\
+├── package-lock.json\
+└── package.json\
 
 ## Local Storage
 

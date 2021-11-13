@@ -383,6 +383,19 @@ We plan to have the following pages:
 
 We will use React Router to set up routing for these pages by importing `react-router-dom` version 5.2.0. 
 
+## Styled Components
+
+We will be creating Styled Components for styles that are frequently repeated, and targeting classes within them. To easily distinguish between actual React components 
+and Styled Components, we'll be prefixing all Styled Components names with `Styled`. For example, naming a Styled Component `<Button>`, we'll name it `<StyledButton>`. We install Styled Components npm module to our client directory 
+using: \
+`cd client && npm install --save styled-components`\
+Then we install the Styled Components Babel plugin which gives us some nice development benefits such as more legible class names, server-side rendering compatibility, 
+smaller bundles, and more with the command: \
+`npm install --save-dev babel-plugin-styled-components`\
+We also install the Babel macro to make sure the Babel plugin works with our Create React App setup.\
+`npm install --save-dev babel-plugin-macros`\
+
+
 # Contributors
 
 - Source: https://newline.co/courses/build-a-spotify-connected-app by Brittany Chiang

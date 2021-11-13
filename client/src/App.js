@@ -8,34 +8,8 @@ import {
   useLocation
 } from "react-router-dom";
 import logo from './logo.svg';
-import styled, { createGlobalStyle } from 'styled-components/macro';
-
-const GlobalStyle = createGlobalStyle`
-  :root {
-    --black: #121212;
-    --green: #1db954;
-    --white: #ffffff;
-
-    --font: 'Circular Std'--black, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  }
-
-  html {
-    box-sizing: border-box;
-  }
-
-  *,
-  *:before,
-  *:after {
-    box-sizing: inherit;
-  }
-
-  body {
-    margin: 0;
-    padding: 0;
-    background-color: black;
-    color: white;
-  }
-`;
+import styled from 'styled-components/macro';
+import { GlobalStyle } from './styles';
 
 const StyledLoginButton = styled.a`
   background-color: var(--green);

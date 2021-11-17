@@ -10,11 +10,20 @@
   "description": "A web app to visualize personalized Spotify data",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "14.17.5"
+  },
+  "cacheDirectories": [
+    "node_modules",
+    "client/node_modules"
+  ],
   "scripts": {
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "server": "nodemon index.js",
     "client": "cd client && npm start",
-    "postinstall": "cd client && npm install"
+    "postinstall": "cd client && npm install",
+    "build": "NODE_END=production cd client/ && npm install && npm run build",
+    "start-server": "node index.js"
   },
   "repository": {
     "type": "git",

@@ -3,13 +3,14 @@ require('dotenv').config();
 const express = require('express');
 const querystring = require('querystring');
 const axios = require('axios');
-
 const app = express();
-const port = 8888;
+const path = require('path');
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
+const FRONTEND_URI = process.env.FRONTEND_URI;
+const PORT = process.env.PORT || 8888;
 
 
 /**
@@ -28,6 +29,9 @@ const generateRandomString = length => {
 
 
 const stateKey = 'spotify_auth_state';
+
+// Priority serve any static files
+app.use(express.static(path.resolve(__dirname, './client/build')));
 
 // /login route handler
 // want to set up /login route to hit Spotify Accounts Service endpoint
@@ -100,7 +104,7 @@ app.get('/callback', (req, res) => {
             })
 
             // redirect to react app
-            res.redirect(`http://localhost:3000/?${queryParams}`)
+            res.redirect(`${FRONTEND_URI}/?${queryParams}`)
 
 
             // pass along tokens in query params
@@ -140,7 +144,12 @@ app.get('/refresh_token', (req, res) => {
     });
 });
 
+// All remaining requests return the React app, so it handle routing.
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
+});
 
-app.listen(port, () => {
-    console.log(`Express app listening at http://localhost:${port}`);
+
+app.listen(PORT, () => {
+    console.log(`Express app listening at http://localhost:${PORT}`);
 });

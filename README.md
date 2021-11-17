@@ -12,7 +12,7 @@ A web app to visualize personalized Spotify data including features that aren't 
 
 - Node
 - Express
-- Heroku
+- Heroku (allows us to deploy Node servers)
 
 # REST APIs and Express
 

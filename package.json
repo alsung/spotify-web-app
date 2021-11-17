@@ -17,6 +17,13 @@
     "node_modules",
     "client/node_modules"
   ],
+  "engines": {
+    "node": "14.17.5"
+  },
+  "cacheDirectories": [
+    "node_modules",
+    "client/node_modules"
+  ],
   "scripts": {
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "server": "nodemon index.js",

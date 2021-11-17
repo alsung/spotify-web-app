@@ -11,14 +11,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "engines": {
-    "node": "14.17.5"
-  },
-  "cacheDirectories": [
-    "node_modules",
-    "client/node_modules"
-  ],
-  "engines": {
-    "node": "14.17.5"
+    "node": "14.15.0"
   },
   "cacheDirectories": [
     "node_modules",
@@ -29,7 +22,7 @@
     "server": "nodemon index.js",
     "client": "cd client && npm start",
     "postinstall": "cd client && npm install",
-    "build": "NODE_END=production cd client/ && npm install && npm run build",
+    "build": "NODE_ENV=production cd client/ && npm install && npm run build",
     "start-server": "node index.js"
   },
   "repository": {

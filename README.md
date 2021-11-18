@@ -12,7 +12,14 @@ A web app to visualize personalized Spotify data including features that aren't 
 
 - Node
 - Express
-- Heroku (allows us to deploy Node servers)
+
+# To use the web app
+
+Run the following commands to view and use the web application. \
+`npm start`\
+Once the React app opens in a browser window, you will be prompted to sign into your Spotify account. From there, you are free to check out the features of this app, including top artists (of the last month, last 6 months, or all time), top 
+tracks (of the last month, last 6 months, or all time), your playlists, and the ability to sort your playlist tracks based on danceability, tempo, and energy. \
+![Screenshot](client/public/og.png)
 
 # REST APIs and Express
 
